@@ -1,17 +1,11 @@
 import React from "react";
-import { Switch, Route } from "react-router-dom";
 import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
-import clsx from "clsx";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Link from "@material-ui/core/Link";
-
-import Admin from "../pages/Admin/Admin";
-import Home from "../pages/Home/Home";
-import Houses from "../pages/Houses/Houses";
-import Users from "../pages/Users/Users";
+import Routes from "./Routes";
 
 function Copyright() {
     return (
@@ -48,20 +42,7 @@ export default function MainApp() {
             <Container maxWidth="lg" className={classes.container}>
                 <Grid container spacing={3}>
                     <Grid item xs={12} md={12} lg={12}>
-                        <Switch>
-                            <Route exact path="/">
-                                <Home />
-                            </Route>
-                            <Route exact path="/dashboard/admins">
-                                <Admin />
-                            </Route>
-                            <Route exact path="/dashboard/users">
-                                <Users />
-                            </Route>
-                            <Route exact path="/dashboard/houses">
-                                <Houses />
-                            </Route>
-                        </Switch>
+                        <Routes />
                     </Grid>
                 </Grid>
                 <Box pt={4}>

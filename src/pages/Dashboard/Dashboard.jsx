@@ -21,7 +21,7 @@ import NotificationsIcon from "@material-ui/icons/Notifications";
 
 import { ListMenuItem } from "../../components";
 
-import Admin from "../Admin/Admin";
+import Admin from "../Admins/Admins";
 import Home from "../Home/Home";
 import Houses from "../Houses/Houses";
 import Users from "../Users/Users";
