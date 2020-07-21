@@ -22,6 +22,9 @@ const useStyles = makeStyles((theme) => ({
     button: {
         margin: theme.spacing(1),
     },
+    link: {
+        textDecoration: "none",
+    },
 }));
 
 function createData(name, calories, fat, carbs, protein) {
@@ -52,7 +55,10 @@ export default function Admin() {
                         <h1>List Admin</h1>
                     </Grid>
                     <Grid>
-                        <Link to="/dashboard/admins/create">
+                        <Link
+                            to="/dashboard/admins/create"
+                            className={classes.link}
+                        >
                             <Button
                                 variant="contained"
                                 color="primary"
@@ -95,7 +101,10 @@ export default function Admin() {
                                     {row.protein}
                                 </TableCell>
                                 <TableCell align="right">
-                                    <Link to="/dashboard/admins/edit">
+                                    <Link
+                                        to="/dashboard/admins/edit"
+                                        className={classes.link}
+                                    >
                                         <Button
                                             variant="contained"
                                             color="primary"
