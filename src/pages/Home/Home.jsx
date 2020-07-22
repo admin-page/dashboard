@@ -27,8 +27,7 @@ function Copyright() {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: '100vh',
-    padding:'10vh',
+    padding:'5vh',
   },
   image: {
     backgroundImage: `url(${bg_home})`,

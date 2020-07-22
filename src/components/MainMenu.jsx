@@ -11,7 +11,6 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ListMenuItem from "./ListMenuItem";
 import Header from "./Header";
 import MainApp from "./MainApp";
-
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
