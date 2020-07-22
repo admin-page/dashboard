@@ -14,8 +14,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 // import Link from '@material-ui/core/Link';
 import DeleteIcon from "@material-ui/icons/Delete";
-import EditIcon from "@material-ui/icons/Edit";
-import { ModalAddHouse } from "../../components";
+import { ModalAddHouse, ModalEditHouse } from "../../components";
 // import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 // import MoreVertIcon from '@material-ui/icons/MoreVert';
@@ -122,15 +121,7 @@ export default function Album() {
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <Button
-                        size="small"
-                        variant="contained"
-                        color="primary"
-                        className={classes.button}
-                        startIcon={<EditIcon />}
-                    >
-                        Edit
-                    </Button>
+                    <ModalEditHouse/>
                     <Button
                         size="small"
                         variant="contained"

@@ -24,13 +24,13 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-export default function AddHouse() {
+export default function EditHouse() {
     const classes = useStyles();
 
     return (
         <form className={classes.root} noValidate autoComplete="off">
             <div>
-                <h1>Add House</h1>
+                <h1>Edit House</h1>
             </div>
             <TextField
                 id="houseTitle"

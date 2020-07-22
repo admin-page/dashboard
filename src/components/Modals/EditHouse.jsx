@@ -1,9 +1,9 @@
 import React, { Fragment } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
-import AddIcon from "@material-ui/icons/Add";
+import EditIcon from "@material-ui/icons/Edit";
 import Button from "@material-ui/core/Button";
-import FormAddHouse from "../Forms/AddHouse";
+import FormEditHouse from "../Forms/EditHouse";
 
 function rand() {
     return Math.round(Math.random() * 20) - 10;
@@ -32,11 +32,11 @@ const useStyles = makeStyles((theme) => ({
     },
     button: {
         margin: theme.spacing(1),
-        width: "100%",
+ 
     },
 }));
 
-export default function AddHouse() {
+export default function EditHouse() {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
     const [modalStyle] = React.useState(getModalStyle);
@@ -48,25 +48,17 @@ export default function AddHouse() {
     const handleClose = () => {
         setOpen(false);
     };
-
-    // const body = (
-    //     <div style={modalStyle} className={classes.paper}>
-    //         <h2 id="simple-modal-title">Text in a modal</h2>
-    //         <p id="simple-modal-description">
-    //             Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-    //         </p>
-    //     </div>
-    // );
     return (
         <Fragment>
             <Button
+                size="small"
                 variant="contained"
                 color="primary"
                 onClick={handleOpen}
                 className={classes.button}
-                startIcon={<AddIcon />}
+                startIcon={<EditIcon />}
             >
-                Add
+                Edit
             </Button>
             <Modal
                 open={open}
@@ -75,7 +67,7 @@ export default function AddHouse() {
                 aria-describedby="simple-modal-description"
             >
                 <div style={modalStyle} className={classes.paper}>
-                    <FormAddHouse />
+                    <FormEditHouse />
                 </div>
             </Modal>
         </Fragment>
