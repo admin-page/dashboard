@@ -10,7 +10,6 @@ import MenuIcon from "@material-ui/icons/Menu";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import { useLocation } from "react-router-dom";
 
-
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
