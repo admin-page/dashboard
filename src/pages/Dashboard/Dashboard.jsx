@@ -10,13 +10,7 @@ import Container from "@material-ui/core/Container";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { ListMenuItem } from "../../components";
 import { Switch, Route } from "react-router-dom";
-import {
-    Admins,
-    Users,
-    Houses,
-    Home,
-    Dashboard as DashboardPage,
-} from "../../pages";
+import { Admins, Users, Houses, Dashboard as DashboardPage } from "../../pages";
 
 const drawerWidth = 240;
 
@@ -132,9 +126,6 @@ export default function Dashboard() {
                 <div className={classes.appBarSpacer} />
                 <Container maxWidth="lg" className={classes.container}>
                     <Switch>
-                        <Route exact path="/">
-                            <Home />
-                        </Route>
                         <Route exact path="/dashboard">
                             <DashboardPage />
                         </Route>
