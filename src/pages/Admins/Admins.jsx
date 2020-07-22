@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -14,6 +14,8 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import AddIcon from "@material-ui/icons/Add";
 import { Link } from "react-router-dom";
+import { getAllAdmin } from "../../redux/actions";
+import { useDispatch, useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
     table: {
@@ -27,20 +29,16 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-    createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-    createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-    createData("Eclair", 262, 16.0, 24, 6.0),
-    createData("Cupcake", 305, 3.7, 67, 4.3),
-    createData("Gingerbread", 356, 16.0, 49, 3.9),
-];
-
 export default function Admin() {
     const classes = useStyles();
+    const dispatch = useDispatch();
+    const admins = useSelector((state) => state.admins);
+
+    useEffect(() => {
+        dispatch(getAllAdmin());
+    }, [dispatch]);
+
+    console.log(admins);
 
     return (
         <Fragment>
@@ -76,55 +74,61 @@ export default function Admin() {
                 <Table className={classes.table} aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            <TableCell>Dessert (100g serving)</TableCell>
-                            <TableCell align="right">Calories</TableCell>
-                            <TableCell align="right">Fat&nbsp;(g)</TableCell>
-                            <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-                            <TableCell align="right">
-                                Protein&nbsp;(g)
-                            </TableCell>
+                            <TableCell>Username</TableCell>
+                            <TableCell align="right">Email</TableCell>
+                            <TableCell align="right">Created By</TableCell>
+                            <TableCell align="right">Created At</TableCell>
+                            <TableCell align="right">Updated At</TableCell>
                             <TableCell align="right">Actions</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {rows.map((row) => (
-                            <TableRow key={row.name}>
-                                <TableCell component="th" scope="row">
-                                    {row.name}
-                                </TableCell>
-                                <TableCell align="right">
-                                    {row.calories}
-                                </TableCell>
-                                <TableCell align="right">{row.fat}</TableCell>
-                                <TableCell align="right">{row.carbs}</TableCell>
-                                <TableCell align="right">
-                                    {row.protein}
-                                </TableCell>
-                                <TableCell align="right">
-                                    <Link
-                                        to="/dashboard/admins/edit"
-                                        className={classes.link}
-                                    >
+                        {Array.isArray(admins) &&
+                            admins.map((row) => (
+                                <TableRow key={row._id}>
+                                    <TableCell component="th" scope="row">
+                                        {row.username}
+                                    </TableCell>
+                                    <TableCell align="right">
+                                        {row.email}
+                                    </TableCell>
+                                    <TableCell align="right">
+                                        {row.createdBy}
+                                    </TableCell>
+                                    <TableCell align="right">
+                                        {row.createdAt}
+                                    </TableCell>
+                                    <TableCell align="right">
+                                        {row.updatedAt}
+                                    </TableCell>
+                                    <TableCell align="right">
+                                        {row.createdBy}
+                                    </TableCell>
+                                    <TableCell align="right">
+                                        <Link
+                                            to={`/dashboard/admins/edit/${row._id}`}
+                                            className={classes.link}
+                                        >
+                                            <Button
+                                                variant="contained"
+                                                color="primary"
+                                                className={classes.button}
+                                                startIcon={<EditIcon />}
+                                            >
+                                                Edit
+                                            </Button>
+                                        </Link>
                                         <Button
                                             variant="contained"
-                                            color="primary"
+                                            color="secondary"
                                             className={classes.button}
-                                            startIcon={<EditIcon />}
+                                            startIcon={<DeleteIcon />}
                                         >
-                                            Edit
+                                            Delete
                                         </Button>
-                                    </Link>
-                                    <Button
-                                        variant="contained"
-                                        color="secondary"
-                                        className={classes.button}
-                                        startIcon={<DeleteIcon />}
-                                    >
-                                        Delete
-                                    </Button>
-                                </TableCell>
-                            </TableRow>
-                        ))}
+                                    </TableCell>
+                                </TableRow>
+                            ))}
                     </TableBody>
                 </Table>
             </TableContainer>
