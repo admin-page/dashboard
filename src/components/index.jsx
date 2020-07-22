@@ -6,6 +6,7 @@ export { default as FormAddHouse } from "./Forms/AddHouse";
 export { default as ModalEditHouse } from "./Modals/EditHouse";
 export { default as ModalAddHouse } from "./Modals/AddHouse";
 export { default as FormEditHouse } from "./Forms/EditHouse";
+export { default as FormLogin } from "./Forms/Login";
 export { default as FormAddAdmin } from "./Forms/AddAdmin";
 export { default as FormEditAdmin } from "./Forms/EditAdmin";
 export { default as Routes } from "./Routes";
