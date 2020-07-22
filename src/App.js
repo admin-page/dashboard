@@ -6,6 +6,7 @@ import { MainMenu } from "./components";
 import { Login } from "./pages";
 import store from "./redux/store";
 import { Provider } from "react-redux";
+import PrivateRoute from "./helpers/PrivateRoute";
 
 function App() {
     return (
@@ -15,9 +16,9 @@ function App() {
                     <Route exact path="/">
                         <Login />
                     </Route>
-                    <Route path="/dashboard">
+                    <PrivateRoute path="/dashboard">
                         <MainMenu />
-                    </Route>
+                    </PrivateRoute>
                 </Switch>
             </Router>
         </Provider>
