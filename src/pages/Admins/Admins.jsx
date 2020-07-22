@@ -12,7 +12,8 @@ import Container from "@material-ui/core/Container";
 import Button from "@material-ui/core/Button";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
-import { ModalAddAdmin } from "../../components";
+import AddIcon from "@material-ui/icons/Add";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     table: {
@@ -20,6 +21,9 @@ const useStyles = makeStyles((theme) => ({
     },
     button: {
         margin: theme.spacing(1),
+    },
+    link: {
+        textDecoration: "none",
     },
 }));
 
@@ -51,7 +55,19 @@ export default function Admin() {
                         <h1>List Admin</h1>
                     </Grid>
                     <Grid>
-                        <ModalAddAdmin />
+                        <Link
+                            to="/dashboard/admins/create"
+                            className={classes.link}
+                        >
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                className={classes.button}
+                                startIcon={<AddIcon />}
+                            >
+                                Add
+                            </Button>
+                        </Link>
                     </Grid>
                 </Grid>
             </Container>
@@ -85,14 +101,19 @@ export default function Admin() {
                                     {row.protein}
                                 </TableCell>
                                 <TableCell align="right">
-                                    <Button
-                                        variant="contained"
-                                        color="primary"
-                                        className={classes.button}
-                                        startIcon={<EditIcon />}
+                                    <Link
+                                        to="/dashboard/admins/edit"
+                                        className={classes.link}
                                     >
-                                        Edit
-                                    </Button>
+                                        <Button
+                                            variant="contained"
+                                            color="primary"
+                                            className={classes.button}
+                                            startIcon={<EditIcon />}
+                                        >
+                                            Edit
+                                        </Button>
+                                    </Link>
                                     <Button
                                         variant="contained"
                                         color="secondary"
