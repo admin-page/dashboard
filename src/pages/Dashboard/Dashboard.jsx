@@ -18,12 +18,15 @@ import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import { ListMenuItem } from "../../components";
-import Admin from "../Admin/Admin";
-import Home from "../Home/Home";
-import Houses from "../Houses/Houses";
-import Users from "../Users/Users";
 import { Switch, Route } from "react-router-dom";
-  
+import {
+    Admins,
+    Users,
+    Houses,
+    Home,
+    Dashboard as DashboardPage,
+} from "../../pages";
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -146,10 +149,10 @@ export default function Dashboard() {
                             <Home />
                         </Route>
                         <Route exact path="/dashboard">
-                            <Dashboard />
+                            <DashboardPage />
                         </Route>
                         <Route exact path="/dashboard/admin">
-                            <Admin />
+                            <Admins />
                         </Route>
                         <Route exact path="/dashboard/users">
                             <Users />

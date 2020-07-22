@@ -4,6 +4,7 @@ export { default as MainMenu } from "./MainMenu";
 export { default as MainApp } from "./MainApp";
 export { default as FormAddHouse } from "./Forms/AddHouse";
 export { default as ModalEditHouse } from "./Modals/EditHouse";
+export { default as ModalAddHouse } from "./Modals/AddHouse";
 export { default as FormEditHouse } from "./Forms/EditHouse";
 export { default as FormAddAdmin } from "./Forms/AddAdmin";
 export { default as FormEditAdmin } from "./Forms/EditAdmin";
