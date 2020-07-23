@@ -14,6 +14,10 @@ const useStyles = makeStyles((theme) => ({
         textDecoration: "none",
         color: "black",
     },
+    accordion: {
+        boxShadow: "none",
+        position: "inherit",
+    },
 }));
 
 export default function ListMenuItem() {
@@ -40,6 +44,14 @@ export default function ListMenuItem() {
             <ListItem button>
                 <ListItemIcon>
                     <GroupRoundedIcon color="primary" />
+                </ListItemIcon>
+                <Link to="/dashboard/users/approval" className={classes.link}>
+                    <ListItemText primary="Approval Users" />
+                </Link>
+            </ListItem>
+            <ListItem button>
+                <ListItemIcon>
+                    <SupervisedUserCircleIcon color="primary" />
                 </ListItemIcon>
                 <Link to="/dashboard/users" className={classes.link}>
                     <ListItemText primary="Users" />
