@@ -24,7 +24,27 @@ export const getAllHouse = () => async (dispatch) => {
     });
 };
 
-export const addHouse = (values, history) => async () => {
+export const getHouseByID = (id) => async (dispatch) => {
+    const token = localStorage.getItem("token");
+
+    const options = {
+        method: "GET",
+        headers: {
+            "content-type": "application/json",
+            authorization: `Bearer ${token}`,
+        },
+    };
+
+    const response = await fetch(`${url}/house/${id}`, options);
+    const result = await response.json();
+
+    dispatch({
+        type: GET_HOUSE_BY_ID,
+        payload: result.data,
+    });
+};
+
+export const addHouse = (values, history) => async (dispatch) => {
     const token = localStorage.getItem("token");
 
     try {
@@ -45,8 +65,7 @@ export const addHouse = (values, history) => async () => {
                 icon: "success",
                 title: "New House successfully Created",
             });
-
-            history.goBack();
+            dispatch(getAllHouse());
         } else {
             Swal.fire({
                 icon: "error",
@@ -78,8 +97,47 @@ export const deleteHouse = (id) => async (dispatch) => {
                 icon: "success",
                 title: "House is deleted",
             });
-
             dispatch(getAllHouse());
+        } else {
+            Swal.fire({
+                icon: "error",
+                title: result.message,
+            });
+        }
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+export const updateHouse = (values, id, history) => async () => {
+    const token = localStorage.getItem("token");
+
+    try {
+        for (let key in values) {
+            if (values[key] === "") {
+                delete values[key];
+            }
+        }
+
+        const options = {
+            method: "PUT",
+            headers: {
+                "content-type": "application/json",
+                authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(values),
+        };
+
+        const response = await fetch(`${url}/house/update/${id}`, options);
+        const result = await response.json();
+
+        if (response.status === 200) {
+            Swal.fire({
+                icon: "success",
+                title: "Update House is successfully",
+            });
+
+            history.goBack();
         } else {
             Swal.fire({
                 icon: "error",
