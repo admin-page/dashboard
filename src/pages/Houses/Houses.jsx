@@ -14,8 +14,8 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import CardHeader from '@material-ui/core/CardHeader';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
-import { fetchHouses } from "../../redux/actions";
-import { connect } from "react-redux";
+import { getAllHouse, } from "../../redux/actions";
+import { useDispatch, useSelector } from "react-redux";
 
 import LocationOnTwoToneIcon from '@material-ui/icons/LocationOnTwoTone';
 import AccountBalanceWalletTwoToneIcon from '@material-ui/icons/AccountBalanceWalletTwoTone';
@@ -54,13 +54,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Houses(props) {
+export default function Houses() {
   const classes = useStyles();
-  useEffect(() => {
-    props.dispatch(fetchHouses());
+  const dispatch = useDispatch();
+  const houses = useSelector((state) => state.houses);
 
-    // eslint-disable-next-line
-    }, []);
+  useEffect(() => {
+      dispatch(getAllHouse());
+  }, [dispatch]);
+
 
   return (
     <React.Fragment>
@@ -84,7 +86,7 @@ function Houses(props) {
           {/* End hero unit */}
           <Grid container spacing={4} >
             {
-            Array.isArray(props.houses) && props.houses.map((house) => (
+            Array.isArray(houses) && houses.map((house) => (
               <Grid item key={house._id} xs={12} sm={6} md={4}>
                 <Card className={classes.mo}>
                 <CardHeader
@@ -141,9 +143,3 @@ function Houses(props) {
     </React.Fragment>
   );
 }
-const mapStateToProps = (state) => {
-  return {
-      houses: state.houses,
-  };
-};
-export default connect(mapStateToProps, null)(Houses);
