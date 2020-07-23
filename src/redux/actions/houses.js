@@ -97,7 +97,6 @@ export const deleteHouse = (id) => async (dispatch) => {
                 icon: "success",
                 title: "House is deleted",
             });
-
             dispatch(getAllHouse());
         } else {
             Swal.fire({
@@ -109,6 +108,7 @@ export const deleteHouse = (id) => async (dispatch) => {
         console.log(error);
     }
 };
+
 export const updateHouse = (values, id, history) => async () => {
     const token = localStorage.getItem("token");
 

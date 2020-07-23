@@ -53,10 +53,13 @@ export default function EditHouse() {
     const history = useHistory();
 
     const id = pathname.split("/")[4];
+    
 
     useEffect(() => {
         dispatch(getHouseByID(id));
+        console.log(id)
     }, [dispatch, id]);
+    
 
     return (
 
@@ -76,7 +79,7 @@ export default function EditHouse() {
                 {() => (
                         <Form className={classes.form}>
                         <div>
-                            <h1>Add House</h1>
+                            <h1>Edit House</h1>
                         </div>
                         <Field
                             type="text"

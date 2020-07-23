@@ -3,7 +3,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from '@material-ui/core/Button';
 import SaveIcon from '@material-ui/icons/Save';
-
 import { useDispatch } from "react-redux";
 import { addHouse } from "../../redux/actions";
 import { useHistory } from "react-router-dom";
@@ -35,6 +34,7 @@ export default function AddHouse() {
     const classes = useStyles();
     const dispatch = useDispatch();
     const history = useHistory();
+
     const CustomField = (props) => {
         return (
             <TextField
@@ -118,6 +118,7 @@ export default function AddHouse() {
                             variant="contained"
                             color="primary"
                             className={classes.submit}
+                            onClose
                         >Save</Button>
                         
                     </Form>
