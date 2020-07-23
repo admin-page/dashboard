@@ -9,5 +9,6 @@ export { default as FormEditHouse } from "./Forms/EditHouse";
 export { default as FormLogin } from "./Forms/Login";
 export { default as FormAddAdmin } from "./Forms/AddAdmin";
 export { default as FormEditAdmin } from "./Forms/EditAdmin";
+export { default as FormEditUser } from "./Forms/EditUser";
 export { default as Routes } from "./Routes";
 export { default as SubMenu } from "./SubMenu";
