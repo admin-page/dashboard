@@ -5,10 +5,11 @@ import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
-import Badge from "@material-ui/core/Badge";
 import MenuIcon from "@material-ui/icons/Menu";
-import NotificationsIcon from "@material-ui/icons/Notifications";
-import { useLocation } from "react-router-dom";
+import LogoutIcon from "@material-ui/icons/ExitToApp";
+import { useLocation, useHistory } from "react-router-dom";
+import { logout } from "../redux/actions";
+import { useDispatch } from "react-redux";
 
 const drawerWidth = 240;
 
@@ -37,10 +38,15 @@ const useStyles = makeStyles((theme) => ({
     title: {
         flexGrow: 1,
     },
+    icon: {
+        color: "white",
+    },
 }));
 
 export default function Header(props) {
     const { pathname } = useLocation();
+    const history = useHistory();
+    const dispatch = useDispatch();
     const classes = useStyles();
 
     const routeName = pathname.split("/")[2];
@@ -72,10 +78,8 @@ export default function Header(props) {
                 >
                     {routeName}
                 </Typography>
-                <IconButton color="inherit">
-                    <Badge badgeContent={1} color="secondary">
-                        <NotificationsIcon />
-                    </Badge>
+                <IconButton onClick={() => dispatch(logout(history))}>
+                    <LogoutIcon className={classes.icon} />
                 </IconButton>
             </Toolbar>
         </AppBar>

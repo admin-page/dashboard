@@ -1,12 +1,11 @@
 import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
-import { Container, Grid, Button } from "@material-ui/core";
+import { Container, Grid, Button, MenuItem } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useHistory } from "react-router-dom";
-import { getAdminByID } from "../../redux/actions";
+import { getUserByID, updateUser } from "../../redux/actions";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { updateAdmin } from "../../redux/actions";
 
 const useStyles = makeStyles((theme) => ({
     field: {
@@ -18,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function EditAdmin() {
+export default function EditUser() {
     const classes = useStyles();
 
     const CustomField = (props) => {
@@ -34,25 +33,45 @@ export default function EditAdmin() {
         );
     };
 
+    const CustomSelectField = (props) => {
+        return (
+            <TextField
+                id="standard-select-currency"
+                select
+                label="Select"
+                helperText="Please select your status"
+                variant="filled"
+                margin="normal"
+                className={classes.field}
+                {...props}
+            >
+                <MenuItem value="PENDING">PENDING</MenuItem>
+                <MenuItem value="ACTIVE">ACTIVE</MenuItem>
+                <MenuItem value="REJECTED">REJECTED</MenuItem>
+            </TextField>
+        );
+    };
+
     const dispatch = useDispatch();
     const { pathname } = useLocation();
-    const admins = useSelector((state) => state.admins);
+    const users = useSelector((state) => state.users);
     const history = useHistory();
 
     const id = pathname.split("/")[4];
 
     useEffect(() => {
-        dispatch(getAdminByID(id));
+        dispatch(getUserByID(id));
     }, [dispatch, id]);
 
     return (
         <Container>
             <Formik
                 initialValues={{
-                    email: admins.email || "",
-                    password: "",
-                    username: admins.username || "",
-                    confirmPassword: "",
+                    fullname: users.fullname || "",
+                    email: users.email || "",
+                    address: users.address || "",
+                    phone: users.phone || "",
+                    status: users.status || "",
                 }}
                 enableReinitialize={true}
                 validate={(values) => {
@@ -67,21 +86,14 @@ export default function EditAdmin() {
                         errors.email = "Invalid email address";
                     }
 
-                    if (values.password.length > 0) {
-                        if (values.password !== values.confirmPassword) {
-                            errors.confirmPassword = "Password not match";
-                        } else if (values.password.length < 8) {
-                            errors.password = "Minimum Password 8 Character";
-                        }
-                    }
-
-                    if (!values.username) {
-                        errors.username = "Required";
+                    if (!values.fullname) {
+                        errors.fullname = "Required";
                     }
                     return errors;
                 }}
                 onSubmit={(values) => {
-                    dispatch(updateAdmin(values, id, history));
+                    console.log(values);
+                    dispatch(updateUser(values, id, history));
                 }}
             >
                 {() => (
@@ -111,38 +123,50 @@ export default function EditAdmin() {
                                 <Field
                                     type="text"
                                     as={CustomField}
-                                    name="username"
-                                    label="Username"
+                                    name="fullname"
+                                    label="Fullname"
                                     required
                                 />
                                 <ErrorMessage
-                                    name="username"
+                                    name="fullname"
                                     component="div"
                                     className={classes.error}
                                 />
                             </Grid>
                             <Grid container item xs={12} md={6} lg={6}>
                                 <Field
-                                    type="password"
+                                    type="text"
                                     as={CustomField}
-                                    name="password"
-                                    label="Password"
+                                    name="phone"
+                                    label="Phone"
                                 />
                                 <ErrorMessage
-                                    name="password"
+                                    name="phone"
                                     component="div"
                                     className={classes.error}
                                 />
                             </Grid>
                             <Grid container item xs={12} md={6} lg={6}>
                                 <Field
-                                    type="password"
+                                    type="text"
                                     as={CustomField}
-                                    name="confirmPassword"
-                                    label="Re-enter Password"
+                                    name="address"
+                                    label="Address"
                                 />
                                 <ErrorMessage
-                                    name="confirmPassword"
+                                    name="address"
+                                    component="div"
+                                    className={classes.error}
+                                />
+                            </Grid>
+                            <Grid container item xs={12} md={6} lg={6}>
+                                <Field
+                                    as={CustomSelectField}
+                                    name="status"
+                                    label="Status"
+                                />
+                                <ErrorMessage
+                                    name="status"
                                     component="div"
                                     className={classes.error}
                                 />

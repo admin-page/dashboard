@@ -10,11 +10,9 @@ import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
 import Button from "@material-ui/core/Button";
-import DeleteIcon from "@material-ui/icons/Delete";
-import EditIcon from "@material-ui/icons/Edit";
-import AddIcon from "@material-ui/icons/Add";
-import { Link } from "react-router-dom";
-import { getAllAdmin, deleteAdmin } from "../../redux/actions";
+import RejectedIcon from "@material-ui/icons/Clear";
+import ApprovedIcon from "@material-ui/icons/CheckBox";
+import { getPendingUser, updateStatusUser } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
@@ -32,10 +30,10 @@ const useStyles = makeStyles((theme) => ({
 export default function Admin() {
     const classes = useStyles();
     const dispatch = useDispatch();
-    const admins = useSelector((state) => state.admins);
+    const users = useSelector((state) => state.users);
 
     useEffect(() => {
-        dispatch(getAllAdmin());
+        dispatch(getPendingUser());
     }, [dispatch]);
 
     return (
@@ -48,22 +46,7 @@ export default function Admin() {
                     alignItems="center"
                 >
                     <Grid>
-                        <h1>List Admin</h1>
-                    </Grid>
-                    <Grid>
-                        <Link
-                            to="/dashboard/admins/create"
-                            className={classes.link}
-                        >
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                className={classes.button}
-                                startIcon={<AddIcon />}
-                            >
-                                Add
-                            </Button>
-                        </Link>
+                        <h1>List Approval User</h1>
                     </Grid>
                 </Grid>
             </Container>
@@ -72,24 +55,37 @@ export default function Admin() {
                 <Table className={classes.table} aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            <TableCell>Username</TableCell>
+                            <TableCell>Fullname</TableCell>
                             <TableCell align="right">Email</TableCell>
+                            <TableCell align="right">Phone</TableCell>
+                            <TableCell align="right">Address</TableCell>
+                            <TableCell align="right">Status</TableCell>
                             <TableCell align="right">Created By</TableCell>
                             <TableCell align="right">Created At</TableCell>
                             <TableCell align="right">Updated At</TableCell>
                             <TableCell align="right">Updated By</TableCell>
+                            <TableCell align="right">Approved By</TableCell>
                             <TableCell align="right">Actions</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {Array.isArray(admins) &&
-                            admins.map((row) => (
+                        {Array.isArray(users) &&
+                            users.map((row) => (
                                 <TableRow key={row._id}>
                                     <TableCell component="th" scope="row">
-                                        {row.username}
+                                        {row.fullname}
                                     </TableCell>
                                     <TableCell align="right">
                                         {row.email}
+                                    </TableCell>
+                                    <TableCell align="right">
+                                        {row.phone}
+                                    </TableCell>
+                                    <TableCell align="right">
+                                        {row.address}
+                                    </TableCell>
+                                    <TableCell align="right">
+                                        {row.status}
                                     </TableCell>
                                     <TableCell align="right">
                                         {row.createdBy}
@@ -104,29 +100,40 @@ export default function Admin() {
                                         {row.updatedBy}
                                     </TableCell>
                                     <TableCell align="right">
-                                        <Link
-                                            to={`/dashboard/admins/edit/${row._id}`}
-                                            className={classes.link}
+                                        {row.approvedBy}
+                                    </TableCell>
+                                    <TableCell align="right">
+                                        <Button
+                                            variant="contained"
+                                            color="primary"
+                                            className={classes.button}
+                                            startIcon={<ApprovedIcon />}
+                                            onClick={() =>
+                                                dispatch(
+                                                    updateStatusUser(
+                                                        row._id,
+                                                        "ACTIVE"
+                                                    )
+                                                )
+                                            }
                                         >
-                                            <Button
-                                                variant="contained"
-                                                color="primary"
-                                                className={classes.button}
-                                                startIcon={<EditIcon />}
-                                            >
-                                                Edit
-                                            </Button>
-                                        </Link>
+                                            Approve
+                                        </Button>
                                         <Button
                                             variant="contained"
                                             color="secondary"
                                             className={classes.button}
-                                            startIcon={<DeleteIcon />}
+                                            startIcon={<RejectedIcon />}
                                             onClick={() =>
-                                                dispatch(deleteAdmin(row._id))
+                                                dispatch(
+                                                    updateStatusUser(
+                                                        row._id,
+                                                        "REJECTED"
+                                                    )
+                                                )
                                             }
                                         >
-                                            Delete
+                                            Reject
                                         </Button>
                                     </TableCell>
                                 </TableRow>
