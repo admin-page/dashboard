@@ -10,8 +10,8 @@ import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
 import Button from "@material-ui/core/Button";
-import DeleteIcon from "@material-ui/icons/Delete";
-import EditIcon from "@material-ui/icons/Edit";
+import RejectedIcon from "@material-ui/icons/Clear";
+import ApprovedIcon from "@material-ui/icons/CheckBox";
 import { getPendingUser, updateStatusUser } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -107,7 +107,7 @@ export default function Admin() {
                                             variant="contained"
                                             color="primary"
                                             className={classes.button}
-                                            startIcon={<EditIcon />}
+                                            startIcon={<ApprovedIcon />}
                                             onClick={() =>
                                                 dispatch(
                                                     updateStatusUser(
@@ -123,7 +123,7 @@ export default function Admin() {
                                             variant="contained"
                                             color="secondary"
                                             className={classes.button}
-                                            startIcon={<DeleteIcon />}
+                                            startIcon={<RejectedIcon />}
                                             onClick={() =>
                                                 dispatch(
                                                     updateStatusUser(

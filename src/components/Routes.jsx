@@ -8,6 +8,7 @@ import {
     CreateAdmin,
     EditAdmin,
     UsersApproval,
+    UsersEdit,
 } from "../pages";
 
 export default function Routes() {
@@ -27,6 +28,9 @@ export default function Routes() {
             </Route>
             <Route exact path="/dashboard/users">
                 <Users />
+            </Route>
+            <Route exact path="/dashboard/users/edit/:id">
+                <UsersEdit />
             </Route>
             <Route exact path="/dashboard/users/approval">
                 <UsersApproval />

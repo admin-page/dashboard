@@ -9,7 +9,8 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllUser } from "../../redux/actions";
+import { getAllUser, deleteUser } from "../../redux/actions";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     icon: {
@@ -41,6 +42,9 @@ const useStyles = makeStyles((theme) => ({
     footer: {
         backgroundColor: theme.palette.background.paper,
         padding: theme.spacing(6),
+    },
+    link: {
+        textDecoration: "none",
     },
 }));
 
@@ -80,7 +84,7 @@ export default function Users() {
                                             <CardMedia
                                                 className={classes.cardMedia}
                                                 image={user.avatar}
-                                                title="Image title"
+                                                title={user.fullname}
                                             />
                                         </CardContent>
                                         <CardContent
@@ -107,15 +111,27 @@ export default function Users() {
                                             </Typography>
                                         </CardContent>
                                         <CardActions>
-                                            <Button
-                                                size="small"
-                                                color="primary"
+                                            <Link
+                                                to={`/dashboard/users/edit/${user._id}`}
+                                                className={classes.link}
                                             >
-                                                Edit
-                                            </Button>
+                                                <Button
+                                                    variant="contained"
+                                                    size="small"
+                                                    color="primary"
+                                                >
+                                                    Edit
+                                                </Button>
+                                            </Link>
                                             <Button
+                                                variant="contained"
                                                 size="small"
-                                                color="primary"
+                                                color="secondary"
+                                                onClick={() =>
+                                                    dispatch(
+                                                        deleteUser(user._id)
+                                                    )
+                                                }
                                             >
                                                 Delete
                                             </Button>
