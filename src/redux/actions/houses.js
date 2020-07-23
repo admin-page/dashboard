@@ -57,3 +57,36 @@ export const addHouse = (values, history) => async () => {
         console.log(error);
     }
 };
+
+export const deleteHouse = (id) => async (dispatch) => {
+    const token = localStorage.getItem("token");
+
+    try {
+        const options = {
+            method: "DELETE",
+            headers: {
+                "content-type": "application/json",
+                authorization: `Bearer ${token}`,
+            },
+        };
+
+        const response = await fetch(`${url}/house/remove/${id}`, options);
+        const result = await response.json();
+
+        if (response.status === 200) {
+            Swal.fire({
+                icon: "success",
+                title: "House is deleted",
+            });
+
+            dispatch(getAllHouse());
+        } else {
+            Swal.fire({
+                icon: "error",
+                title: result.message,
+            });
+        }
+    } catch (error) {
+        console.log(error);
+    }
+};

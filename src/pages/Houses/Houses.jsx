@@ -14,9 +14,8 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import CardHeader from '@material-ui/core/CardHeader';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
-import { getAllHouse, } from "../../redux/actions";
+import { getAllHouse, deleteHouse, } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
-
 import LocationOnTwoToneIcon from '@material-ui/icons/LocationOnTwoTone';
 import AccountBalanceWalletTwoToneIcon from '@material-ui/icons/AccountBalanceWalletTwoTone';
 
@@ -130,6 +129,9 @@ export default function Houses() {
                         color="secondary"
                         className={classes.button}
                         startIcon={<DeleteIcon />}
+                        onClick={() =>
+                            dispatch(deleteHouse(house._id))
+                        }
                     >
                         Delete
                     </Button>
