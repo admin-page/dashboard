@@ -1,5 +1,6 @@
 import { combineReducers } from "redux";
 import users from "./users";
-import houses from "./houses";
+import admins from "./admins";
+import admins from "./houses";
 
-export default combineReducers({ users, houses });
+export default combineReducers({ users, admins, houses });

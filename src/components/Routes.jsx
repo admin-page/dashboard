@@ -12,7 +12,7 @@ export default function Routes() {
             <Route exact path="/dashboard/admins/create">
                 <CreateAdmin />
             </Route>
-            <Route exact path="/dashboard/admins/edit">
+            <Route exact path="/dashboard/admins/edit/:id">
                 <EditAdmin />
             </Route>
             <Route exact path="/dashboard/houses">

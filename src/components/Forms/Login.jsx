@@ -28,8 +28,6 @@ const CustomField = (props) => {
             variant="outlined"
             margin="normal"
             required
-            label="Email Address"
-            autoComplete="email"
             autoFocus
             {...props}
         />
@@ -65,15 +63,25 @@ export default function Login() {
                 dispatch(login(values, history));
             }}
         >
-            {({ isSubmitting }) => (
+            {() => (
                 <Form className={classes.form}>
-                    <Field type="email" as={CustomField} name="email" />
+                    <Field
+                        type="email"
+                        as={CustomField}
+                        name="email"
+                        label="Email Address"
+                    />
                     <ErrorMessage
                         name="email"
                         component="div"
                         className={classes.error}
                     />
-                    <Field type="password" as={CustomField} name="password" />
+                    <Field
+                        type="password"
+                        as={CustomField}
+                        name="password"
+                        label="Password"
+                    />
                     <ErrorMessage
                         name="password"
                         component="div"
