@@ -5,6 +5,7 @@ import { Container, Grid, Button } from "@material-ui/core";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useDispatch } from "react-redux";
 import { addAdmin } from "../../redux/actions";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     field: {
@@ -19,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
 export default function AddAdmin() {
     const classes = useStyles();
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const CustomField = (props) => {
         return (
@@ -73,7 +75,7 @@ export default function AddAdmin() {
                     return errors;
                 }}
                 onSubmit={(values) => {
-                    dispatch(addAdmin(values));
+                    dispatch(addAdmin(values, history));
                 }}
             >
                 {() => (

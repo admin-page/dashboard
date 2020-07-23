@@ -14,7 +14,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import AddIcon from "@material-ui/icons/Add";
 import { Link } from "react-router-dom";
-import { getAllAdmin } from "../../redux/actions";
+import { getAllAdmin, deleteAdmin } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
@@ -37,8 +37,6 @@ export default function Admin() {
     useEffect(() => {
         dispatch(getAllAdmin());
     }, [dispatch]);
-
-    console.log(admins);
 
     return (
         <Fragment>
@@ -79,6 +77,7 @@ export default function Admin() {
                             <TableCell align="right">Created By</TableCell>
                             <TableCell align="right">Created At</TableCell>
                             <TableCell align="right">Updated At</TableCell>
+                            <TableCell align="right">Updated By</TableCell>
                             <TableCell align="right">Actions</TableCell>
                         </TableRow>
                     </TableHead>
@@ -102,7 +101,7 @@ export default function Admin() {
                                         {row.updatedAt}
                                     </TableCell>
                                     <TableCell align="right">
-                                        {row.createdBy}
+                                        {row.updatedBy}
                                     </TableCell>
                                     <TableCell align="right">
                                         <Link
@@ -123,6 +122,9 @@ export default function Admin() {
                                             color="secondary"
                                             className={classes.button}
                                             startIcon={<DeleteIcon />}
+                                            onClick={() =>
+                                                dispatch(deleteAdmin(row._id))
+                                            }
                                         >
                                             Delete
                                         </Button>
