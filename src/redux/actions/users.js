@@ -1,6 +1,8 @@
 import Swal from "sweetalert2";
 
 export const LOGIN = "LOGIN";
+export const GET_ALL_PENDING_USER = "GET_ALL_PENDING_USER";
+export const GET_ALL_USER = "GET_ALL_USER";
 const url = process.env.REACT_APP_API_URL;
 
 export const login = (values, history) => async () => {
@@ -58,4 +60,86 @@ export const logout = (history) => async () => {
     });
     localStorage.removeItem("token");
     history.push("/");
+};
+
+export const getAllUser = () => async (dispatch) => {
+    try {
+        const token = localStorage.getItem("token");
+
+        const options = {
+            method: "GET",
+            headers: {
+                "content-type": "application/json",
+                authorization: `Bearer ${token}`,
+            },
+        };
+
+        const response = await fetch(`${url}/users`, options);
+        const result = await response.json();
+
+        dispatch({
+            type: GET_ALL_USER,
+            payload: result.data,
+        });
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+export const getPendingUser = () => async (dispatch) => {
+    try {
+        const token = localStorage.getItem("token");
+
+        const options = {
+            method: "GET",
+            headers: {
+                "content-type": "application/json",
+                authorization: `Bearer ${token}`,
+            },
+        };
+
+        const response = await fetch(`${url}/users/approval`, options);
+        const result = await response.json();
+
+        dispatch({
+            type: GET_ALL_PENDING_USER,
+            payload: result.data,
+        });
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+export const updateStatusUser = (id, status) => async (dispatch) => {
+    try {
+        const token = localStorage.getItem("token");
+
+        const options = {
+            method: "PUT",
+            headers: {
+                "content-type": "application/json",
+                authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({ status: status }),
+        };
+
+        const response = await fetch(`${url}/users/${id}`, options);
+        const result = await response.json();
+
+        if (response.status === 200) {
+            Swal.fire({
+                icon: "success",
+                title: `User with ${id} - ${status}`,
+            });
+
+            dispatch(getPendingUser());
+        } else {
+            Swal.fire({
+                icon: "error",
+                title: result.message,
+            });
+        }
+    } catch (error) {
+        console.error(error);
+    }
 };
