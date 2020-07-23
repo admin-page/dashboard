@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from "react";
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -14,6 +14,11 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import CardHeader from '@material-ui/core/CardHeader';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
+import { fetchHouses } from "../../redux/actions";
+import { connect } from "react-redux";
+
+import LocationOnTwoToneIcon from '@material-ui/icons/LocationOnTwoTone';
+import AccountBalanceWalletTwoToneIcon from '@material-ui/icons/AccountBalanceWalletTwoTone';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -38,6 +43,7 @@ const useStyles = makeStyles((theme) => ({
   },
   cardMedia: {
     paddingTop: '56.25%', // 16:9
+    margin: '5%',
   },
   cardContent: {
     flexGrow: 1,
@@ -48,10 +54,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-
-export default function Album() {
+function Houses(props) {
   const classes = useStyles();
+  useEffect(() => {
+    props.dispatch(fetchHouses());
+
+    // eslint-disable-next-line
+    }, []);
 
   return (
     <React.Fragment>
@@ -73,13 +82,14 @@ export default function Album() {
         </Container>
         <Container >
           {/* End hero unit */}
-          <Grid container spacing={4}>
-            {cards.map((card) => (
-              <Grid item key={card} xs={12} sm={6} md={3}>
-                <Card className={classes.card}>
+          <Grid container spacing={4} >
+            {
+            Array.isArray(props.houses) && props.houses.map((house) => (
+              <Grid item key={house._id} xs={12} sm={6} md={4}>
+                <Card className={classes.mo}>
                 <CardHeader
                     avatar={
-                    <Avatar aria-label="recipe" className={classes.avatar}>
+                    <Avatar aria-label="recipe" className={classes.avatar} >
                         R
                     </Avatar>
                     }
@@ -93,12 +103,21 @@ export default function Album() {
                 />
                   <CardMedia
                     className={classes.cardMedia}
-                    image="https://source.unsplash.com/home"
+                    image="https://source.unsplash.com/random"
                     title="Image title"
                   />
                   <CardContent className={classes.cardContent}>
+                    <Typography gutterBottom variant="h4" component="h2">
+                      {house.houseTitle}
+                    </Typography>
                     <Typography gutterBottom variant="h5" component="h2">
-                      Name Of House
+                      <AccountBalanceWalletTwoToneIcon color="primary"/> {house.price}
+                    </Typography>
+                    <Typography gutterBottom variant="h5" component="h2">
+                      <LocationOnTwoToneIcon color="primary"/> {house.location}
+                    </Typography>
+                    <Typography>
+                      {house.desc}
                     </Typography>
                   </CardContent>
                   <CardActions>
@@ -122,3 +141,9 @@ export default function Album() {
     </React.Fragment>
   );
 }
+const mapStateToProps = (state) => {
+  return {
+      houses: state.houses,
+  };
+};
+export default connect(mapStateToProps, null)(Houses);
