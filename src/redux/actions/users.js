@@ -3,7 +3,7 @@ import Swal from "sweetalert2";
 export const LOGIN = "LOGIN";
 const url = process.env.REACT_APP_API_URL;
 
-export const login = (values, history) => async (dispatch) => {
+export const login = (values, history) => async () => {
     try {
         const options = {
             method: "POST",
@@ -49,4 +49,13 @@ export const login = (values, history) => async (dispatch) => {
     } catch (error) {
         console.error(error);
     }
+};
+
+export const logout = (history) => async () => {
+    Swal.fire({
+        icon: "success",
+        title: "Terimakasih",
+    });
+    localStorage.removeItem("token");
+    history.push("/");
 };
