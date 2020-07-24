@@ -3,6 +3,7 @@ const url = process.env.REACT_APP_API_URL;
 
 export const GET_ALL_ADMIN = "GET_ALL_ADMIN";
 export const GET_ADMIN_BY_ID = "GET_ADMIN_BY_ID";
+export const GET_ADMIN_DASHBOARD = "GET_ADMIN_DASHBOARD";
 
 export const getAllAdmin = () => async (dispatch) => {
     const token = localStorage.getItem("token");
@@ -149,4 +150,24 @@ export const deleteAdmin = (id) => async (dispatch) => {
     } catch (error) {
         console.log(error);
     }
+};
+
+export const getDashboard = () => async (dispatch) => {
+    const token = localStorage.getItem("token");
+
+    const options = {
+        method: "GET",
+        headers: {
+            "content-type": "application/json",
+            authorization: `Bearer ${token}`,
+        },
+    };
+
+    const response = await fetch(`${url}/admin/dashboard`, options);
+    const result = await response.json();
+
+    await dispatch({
+        type: GET_ADMIN_DASHBOARD,
+        payload: result.data,
+    });
 };

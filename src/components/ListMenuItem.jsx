@@ -27,6 +27,14 @@ export default function ListMenuItem() {
         <div>
             <ListItem button>
                 <ListItemIcon>
+                    <DashboardRoundedIcon color="primary" />
+                </ListItemIcon>
+                <Link to="/dashboard" className={classes.link}>
+                    <ListItemText primary="Dashboard" />
+                </Link>
+            </ListItem>
+            <ListItem button>
+                <ListItemIcon>
                     <SupervisedUserCircleIcon color="primary" />
                 </ListItemIcon>
                 <Link to="/dashboard/admins" className={classes.link}>
