@@ -40,7 +40,7 @@ export const login = (values, history) => async () => {
             });
 
             setTimeout(() => {
-                history.push("/dashboard");
+                history.push("/dashboard/admins");
             }, 3000);
         } else {
             Swal.fire({

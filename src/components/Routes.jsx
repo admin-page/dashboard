@@ -15,9 +15,6 @@ import {
 export default function Routes() {
     return (
         <Switch>
-            <Route exact path="/dashboard/admin">
-                <Admin />
-            </Route>
             <Route exact path="/dashboard/admins">
                 <Admins />
             </Route>
