@@ -37,12 +37,7 @@ export default function EditHouse(props) {
     const houses = useSelector((state) => state.houses.getHouseById);
     const history = useHistory();
 
-    // Array.isArray(houses) && houses.map((house) => (
-    //     console.log(house._id)
-    //   ))
-
     const id = props.id;
-    console.log(id, "house");
 
     useEffect(() => {
         dispatch(getHouseByID(id));
