@@ -56,6 +56,8 @@ export default function AddHouse() {
                     price: "",
                     location: "",
                     desc: "",
+                    image_url: ""
+
                 }}
                 onSubmit={(values) => {
                     dispatch(addHouse(values, history));
@@ -103,14 +105,16 @@ export default function AddHouse() {
                             required
                         /> 
                         
-                        {/* <input
-                            accept="image/*"
-                            className={classes.input}
-                            id="contained-button-file"
-                            multiple
-                            type="file"
-                        />
-                         */}
+                        <Field
+                            type="text"
+                            name="image_url"
+                            id="image_url"
+                            label="Image URL"
+                            variant="outlined"
+                            as={CustomField}
+                            required
+                        /> 
+                        
                         <Button
                             startIcon={<SaveIcon />}
                             type="submit"
