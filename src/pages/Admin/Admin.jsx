@@ -50,14 +50,6 @@ export default function Admin() {
 
     return (
         <React.Fragment>
-            <CssBaseline />
-            <AppBar position="relative">
-                <Toolbar>
-                    <Typography variant="h6" color="inherit" noWrap>
-                        Statistic
-                    </Typography>
-                </Toolbar>
-            </AppBar>
             <main>
                 {/* Hero unit */}
                 <div className={classes.heroContent}>

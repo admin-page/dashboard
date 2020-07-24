@@ -2,6 +2,7 @@ import React from "react";
 import { Switch, Route } from "react-router-dom";
 
 import {
+    Dashboard,
     Admins,
     Houses,
     Users,
@@ -37,6 +38,9 @@ export default function Routes() {
             </Route>
             <Route exact path="/dashboard/houses">
                 <Houses />
+            </Route>
+            <Route exact path="/dashboard">
+                <Dashboard />
             </Route>
         </Switch>
     );

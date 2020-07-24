@@ -1,4 +1,3 @@
-export { default as Admin } from "../pages/Admin/Admin";
 export { default as Admins } from "../pages/Admins/Admins";
 export { default as CreateAdmin } from "../pages/CreateAdmin/CreateAdmin";
 export { default as EditAdmin } from "../pages/EditAdmin/EditAdmin";
