@@ -37,12 +37,7 @@ export default function EditHouse(props) {
     const houses = useSelector((state) => state.houses.getHouseById);
     const history = useHistory();
 
-    // Array.isArray(houses) && houses.map((house) => (
-    //     console.log(house._id)
-    //   ))
-
     const id = props.id;
-    console.log(id, 'house')
 
     useEffect(() => {
         dispatch(getHouseByID(id));
@@ -57,20 +52,14 @@ export default function EditHouse(props) {
                     location: houses.location || "",
                     image_url: houses.image_url || "",
                     desc: houses.desc || "",
-                    
-                    
                 }}
                 enableReinitialize={true}
                 onSubmit={(values) => {
-                    dispatch(updateHouse(values, id , history));
+                    dispatch(updateHouse(values, id, history));
                 }}
             >
                 {() => (
                     <Form className={classes.form}>
-                        <div>
-                            <h1>Edit House</h1>
-                        </div>
-                    
                         <Grid
                             container
                             justify="center"
@@ -78,7 +67,7 @@ export default function EditHouse(props) {
                             alignItems="center"
                             spacing={2}
                         >
-                            <Grid container >
+                            <Grid container>
                                 <Field
                                     type="text"
                                     as={CustomField}
@@ -87,7 +76,7 @@ export default function EditHouse(props) {
                                     autoFocus
                                 />
                             </Grid>
-                            <Grid container >
+                            <Grid container>
                                 <Field
                                     type="text"
                                     as={CustomField}
@@ -102,9 +91,8 @@ export default function EditHouse(props) {
                                     name="location"
                                     label="Location"
                                 />
-                               
                             </Grid>
-                            <Grid container >
+                            <Grid container>
                                 <Field
                                     type="text"
                                     as={CustomField}
@@ -114,13 +102,12 @@ export default function EditHouse(props) {
                             </Grid>
 
                             <Grid container>
-                                    <Field
+                                <Field
                                     type="text"
                                     name="image_url"
                                     label="Image URL"
                                     as={CustomField}
-                                    
-                                /> 
+                                />
                             </Grid>
                             <Grid container item xs={12} md={6} lg={6}>
                                 <Button
@@ -129,11 +116,11 @@ export default function EditHouse(props) {
                                     variant="contained"
                                     color="primary"
                                     className={classes.submit}
+                                    onClick={props.handleClose}
                                 >
                                     Update
                                 </Button>
                             </Grid>
-                            
                         </Grid>
                     </Form>
                 )}

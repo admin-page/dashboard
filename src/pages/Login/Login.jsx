@@ -16,10 +16,11 @@ function Copyright() {
         <Typography variant="body2" color="textSecondary" align="center">
             {"Copyright © "}
             <Link color="inherit" href="#">
-                JUAL RUMAH
+                <i class="fa fa-copyright" aria-hidden="true">
+                    rumahku.com
+                </i>
             </Link>{" "}
             {new Date().getFullYear()}
-            {"."}
         </Typography>
     );
 }

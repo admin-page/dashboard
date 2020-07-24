@@ -92,7 +92,6 @@ export default function EditUser() {
                     return errors;
                 }}
                 onSubmit={(values) => {
-                    console.log(values);
                     dispatch(updateUser(values, id, history));
                 }}
             >
