@@ -14,7 +14,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import CardHeader from '@material-ui/core/CardHeader';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
-import { getAllHouse, deleteHouse, } from "../../redux/actions";
+import { getAllHouse, deleteHouse} from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import LocationOnTwoToneIcon from '@material-ui/icons/LocationOnTwoTone';
 import AccountBalanceWalletTwoToneIcon from '@material-ui/icons/AccountBalanceWalletTwoTone';
@@ -52,12 +52,18 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(6),
   },
 }));
+// eslint-disable-next-line no-extend-native
+String.prototype.localIDR = function () {
+  return Number(this).toLocaleString("id-ID", {
+    minimumFractionDigits: 2,
+  });
+};
 
 export default function Houses() {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const houses = useSelector((state) => state.houses);
-
+  const houses = useSelector((state) => state.houses.getAllHouse);
+  
   useEffect(() => {
       dispatch(getAllHouse());
   }, [dispatch]);
@@ -86,6 +92,7 @@ export default function Houses() {
           <Grid container spacing={4} >
             {
             Array.isArray(houses) && houses.map((house) => (
+              
               <Grid item key={house._id} xs={12} sm={6} md={4}>
                 <Card className={classes.mo}>
                 <CardHeader
@@ -100,19 +107,19 @@ export default function Houses() {
                     </IconButton>
                     }
                     title="Admin"
-                    subheader="July 21, 2020"
+                    subheader={house.updatedAt}
                 />
                   <CardMedia
                     className={classes.cardMedia}
-                    image="https://source.unsplash.com/random"
-                    title="Image title"
+                    image={house.image_url}
+                    title={house._id}
                   />
                   <CardContent className={classes.cardContent}>
                     <Typography gutterBottom variant="h4" component="h2">
                       {house.houseTitle}
                     </Typography>
                     <Typography gutterBottom variant="h5" component="h2">
-                      <AccountBalanceWalletTwoToneIcon color="primary"/> {house.price}
+                      <AccountBalanceWalletTwoToneIcon color="primary"/> {`${house.price}`.localIDR()}
                     </Typography>
                     <Typography gutterBottom variant="h5" component="h2">
                       <LocationOnTwoToneIcon color="primary"/> {house.location}
@@ -122,7 +129,7 @@ export default function Houses() {
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <ModalEditHouse/>
+                    <ModalEditHouse id={house._id}/>
                     <Button
                         size="small"
                         variant="contained"
@@ -131,7 +138,9 @@ export default function Houses() {
                         startIcon={<DeleteIcon />}
                         onClick={() =>
                             dispatch(deleteHouse(house._id))
+                            
                         }
+                  
                     >
                         Delete
                     </Button>

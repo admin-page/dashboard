@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function EditHouse() {
+export default function EditHouse(props) {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
     const [modalStyle] = React.useState(getModalStyle);
@@ -67,7 +67,7 @@ export default function EditHouse() {
                 aria-describedby="simple-modal-description"
             >
                 <div style={modalStyle} className={classes.paper}>
-                    <FormEditHouse />
+                    <FormEditHouse id={props.id}/>
                 </div>
             </Modal>
         </Fragment>

@@ -3,7 +3,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from '@material-ui/core/Button';
 import SaveIcon from '@material-ui/icons/Save';
-
 import { useDispatch } from "react-redux";
 import { addHouse } from "../../redux/actions";
 import { useHistory } from "react-router-dom";
@@ -35,6 +34,7 @@ export default function AddHouse() {
     const classes = useStyles();
     const dispatch = useDispatch();
     const history = useHistory();
+
     const CustomField = (props) => {
         return (
             <TextField
@@ -56,6 +56,8 @@ export default function AddHouse() {
                     price: "",
                     location: "",
                     desc: "",
+                    image_url: ""
+
                 }}
                 onSubmit={(values) => {
                     dispatch(addHouse(values, history));
@@ -103,14 +105,16 @@ export default function AddHouse() {
                             required
                         /> 
                         
-                        {/* <input
-                            accept="image/*"
-                            className={classes.input}
-                            id="contained-button-file"
-                            multiple
-                            type="file"
-                        />
-                         */}
+                        <Field
+                            type="text"
+                            name="image_url"
+                            id="image_url"
+                            label="Image URL"
+                            variant="outlined"
+                            as={CustomField}
+                            required
+                        /> 
+                        
                         <Button
                             startIcon={<SaveIcon />}
                             type="submit"
@@ -118,6 +122,7 @@ export default function AddHouse() {
                             variant="contained"
                             color="primary"
                             className={classes.submit}
+                            onClose
                         >Save</Button>
                         
                     </Form>
