@@ -1,34 +1,20 @@
 import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
-import SaveIcon from '@material-ui/icons/Save';
-import { Formik, Form, Field} from "formik";
-import { Container, Button } from "@material-ui/core";
-
+import { Container, Grid, Button } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useHistory } from "react-router-dom";
-import { getHouseByID } from "../../redux/actions";
-import { updateHouse } from "../../redux/actions";
-
+import { getHouseByID, updateHouse } from "../../redux/actions";
+import { Formik, Form, Field } from "formik";
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        "& > *": {
-            margin: theme.spacing(1),
-            width: "100%",
-        },
-        
+    field: {
+        width: "100%",
     },
-    modal: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
+    error: {
+        color: "red",
+        fontStyle: "italic",
     },
-    button: {
-        width: "20%",
-        float: "right",
-    }
-
 }));
 
 export default function EditHouse() {
@@ -38,101 +24,106 @@ export default function EditHouse() {
         return (
             <TextField
                 fullWidth
-                variant="filled"
+                variant="outlined"
                 margin="normal"
                 className={classes.field}
-                required
-                autoFocus
                 {...props}
             />
         );
     };
+
     const dispatch = useDispatch();
     const { pathname } = useLocation();
-    const house = useSelector((state) => state.houses);
+    const houses = useSelector((state) => state.houses);
     const history = useHistory();
 
     const id = pathname.split("/")[4];
-    
 
     useEffect(() => {
         dispatch(getHouseByID(id));
-        console.log(id)
     }, [dispatch, id]);
-    
 
     return (
-
         <Container>
             <Formik
                 initialValues={{
-                    houseTitle: house.houseTitle || "",
-                    price: "",
-                    location: "",
-                    desc: "",
+                    houseTitle: houses.houseTitle || "",
+                    price: houses.price || "",
+                    location: houses.location || "",
+                    desc: houses.desc || "",
+                    
                 }}
                 enableReinitialize={true}
                 onSubmit={(values) => {
-                    dispatch(updateHouse(values, history));
+                    dispatch(updateHouse(values, id , history));
                 }}
             >
                 {() => (
-                        <Form className={classes.form}>
+                    <Form className={classes.form}>
                         <div>
                             <h1>Edit House</h1>
                         </div>
-                        <Field
-                            type="text"
-                            name="houseTitle"
-                            id="houseTitle"
-                            label="House Name"
-                            variant="outlined"
-                            as={CustomField}
-                        />
-                        <Field
-                            type="text"
-                            name="price"
-                            id="price"
-                            label="Price"
-                            variant="outlined"
-                            as={CustomField}
-                        />
-                        <Field
-                            type="text"
-                            name="location"
-                            id="location"
-                            label="Location"
-                            variant="outlined"
-                            as={CustomField}
-                        /> 
-                        <Field
-                            type="text"
-                            name="desc"
-                            id="desc"
-                            label="Description"
-                            variant="outlined"
-                            as={CustomField}
-                        /> 
-                        
-                        {/* <input
-                            accept="image/*"
-                            className={classes.input}
-                            id="contained-button-file"
-                            multiple
-                            type="file"
-                        />
-                         */}
-                        <Button
-                            startIcon={<SaveIcon />}
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            color="primary"
-                            className={classes.submit}
+                    
+                        <Grid
+                            container
+                            justify="center"
+                            direction="column"
+                            alignItems="center"
+                            spacing={2}
                         >
-                            Save
-                        </Button>
-                        
+                            <Grid container >
+                                <Field
+                                    type="text"
+                                    as={CustomField}
+                                    name="houseTitle"
+                                    label="House Name"
+                                    autoFocus
+                                    required
+                                />
+                            </Grid>
+                            <Grid container >
+                                <Field
+                                    type="text"
+                                    as={CustomField}
+                                    name="price"
+                                    label="Price"
+                                    required
+                                />
+                            </Grid>
+                            <Grid container>
+                                <Field
+                                    type="text"
+                                    as={CustomField}
+                                    name="location"
+                                    label="Location"
+                                />
+                               
+                            </Grid>
+                            <Grid container >
+                                <Field
+                                    type="text"
+                                    as={CustomField}
+                                    name="desc"
+                                    label="Description"
+                                />
+                            </Grid>
+                            {Array.isArray(houses) && houses.map((house) => (
+                            <Grid  key={house._id}  container item xs={12} md={6} lg={6}>
+                                <Button
+                                    type="submit"
+                                    fullWidth
+                                    variant="contained"
+                                    color="primary"
+                                    className={classes.submit}
+                                    onClick={() =>
+                                        dispatch(updateHouse(house._id))
+                                    }
+                                >
+                                    Update
+                                </Button>
+                            </Grid>
+                            ))}
+                        </Grid>
                     </Form>
                 )}
             </Formik>
