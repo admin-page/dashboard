@@ -6,6 +6,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import SupervisedUserCircleIcon from "@material-ui/icons/SupervisedUserCircle";
 import GroupRoundedIcon from "@material-ui/icons/GroupRounded";
 import HomeWorkRoundedIcon from "@material-ui/icons/HomeWorkRounded";
+import DashboardRoundedIcon from "@material-ui/icons/DashboardRounded";
 import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
