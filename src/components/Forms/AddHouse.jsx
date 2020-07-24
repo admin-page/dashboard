@@ -1,14 +1,14 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
-import Button from '@material-ui/core/Button';
-import SaveIcon from '@material-ui/icons/Save';
+import Button from "@material-ui/core/Button";
+import SaveIcon from "@material-ui/icons/Save";
 import { useDispatch } from "react-redux";
 import { addHouse } from "../../redux/actions";
 import { useHistory } from "react-router-dom";
 
-import { Container} from "@material-ui/core";
-import { Formik, Form, Field} from "formik";
+import { Container } from "@material-ui/core";
+import { Formik, Form, Field } from "formik";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -16,21 +16,19 @@ const useStyles = makeStyles((theme) => ({
             margin: theme.spacing(1),
             width: "100%",
         },
-        
     },
     modal: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
     },
     button: {
         width: "20%",
         float: "right",
-    }
-
+    },
 }));
 
-export default function AddHouse() {
+export default function AddHouse(props) {
     const classes = useStyles();
     const dispatch = useDispatch();
     const history = useHistory();
@@ -56,16 +54,14 @@ export default function AddHouse() {
                     price: "",
                     location: "",
                     desc: "",
+                    image_url: "",
                 }}
                 onSubmit={(values) => {
                     dispatch(addHouse(values, history));
                 }}
             >
                 {() => (
-                        <Form className={classes.form}>
-                        <div>
-                            <h1>Add House</h1>
-                        </div>
+                    <Form className={classes.form}>
                         <Field
                             type="text"
                             name="houseTitle"
@@ -92,7 +88,7 @@ export default function AddHouse() {
                             variant="outlined"
                             as={CustomField}
                             required
-                        /> 
+                        />
                         <Field
                             type="text"
                             name="desc"
@@ -101,16 +97,18 @@ export default function AddHouse() {
                             variant="outlined"
                             as={CustomField}
                             required
-                        /> 
-                        
-                        {/* <input
-                            accept="image/*"
-                            className={classes.input}
-                            id="contained-button-file"
-                            multiple
-                            type="file"
                         />
-                         */}
+
+                        <Field
+                            type="text"
+                            name="image_url"
+                            id="image_url"
+                            label="Image URL"
+                            variant="outlined"
+                            as={CustomField}
+                            required
+                        />
+
                         <Button
                             startIcon={<SaveIcon />}
                             type="submit"
@@ -119,8 +117,10 @@ export default function AddHouse() {
                             color="primary"
                             className={classes.submit}
                             onClose
-                        >Save</Button>
-                        
+                            onClick={props.handleClose}
+                        >
+                            Save
+                        </Button>
                     </Form>
                 )}
             </Formik>

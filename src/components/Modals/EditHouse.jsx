@@ -1,45 +1,21 @@
 import React, { Fragment } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Modal from "@material-ui/core/Modal";
 import EditIcon from "@material-ui/icons/Edit";
 import Button from "@material-ui/core/Button";
 import FormEditHouse from "../Forms/EditHouse";
-
-function rand() {
-    return Math.round(Math.random() * 20) - 10;
-}
-
-function getModalStyle() {
-    const top = 50 + rand();
-    const left = 50 + rand();
-
-    return {
-        top: `${top}%`,
-        left: `${left}%`,
-        transform: `translate(-${top}%, -${left}%)`,
-    };
-}
+import Dialog from "@material-ui/core/Dialog";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogTitle from "@material-ui/core/DialogTitle";
 
 const useStyles = makeStyles((theme) => ({
-    paper: {
-        position: "absolute",
-        width: 500,
-        backgroundColor: theme.palette.background.paper,
-        border: "2px solid #000",
-        boxShadow: theme.shadows[5],
-        padding: theme.spacing(2, 4, 3),
-        display: "flex"
-    },
     button: {
         margin: theme.spacing(1),
- 
     },
 }));
 
-export default function EditHouse() {
+export default function EditHouse(props) {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
-    const [modalStyle] = React.useState(getModalStyle);
 
     const handleOpen = () => {
         setOpen(true);
@@ -60,16 +36,16 @@ export default function EditHouse() {
             >
                 Edit
             </Button>
-            <Modal
+            <Dialog
                 open={open}
                 onClose={handleClose}
-                aria-labelledby="simple-modal-title"
-                aria-describedby="simple-modal-description"
+                aria-labelledby="form-dialog-title"
             >
-                <div style={modalStyle} className={classes.paper}>
-                    <FormEditHouse />
-                </div>
-            </Modal>
+                <DialogTitle id="form-dialog-title">Edit House</DialogTitle>
+                <DialogContent>
+                    <FormEditHouse id={props.id} handleClose={handleClose} />
+                </DialogContent>
+            </Dialog>
         </Fragment>
     );
 }
