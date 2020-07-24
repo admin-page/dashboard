@@ -28,7 +28,6 @@ const CustomField = (props) => {
             variant="outlined"
             margin="normal"
             required
-            autoFocus
             {...props}
         />
     );
@@ -70,6 +69,7 @@ export default function Login() {
                         as={CustomField}
                         name="email"
                         label="Email Address"
+                        autoFocus
                     />
                     <ErrorMessage
                         name="email"

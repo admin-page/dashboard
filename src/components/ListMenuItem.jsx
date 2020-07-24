@@ -30,7 +30,7 @@ export default function ListMenuItem() {
                     <DashboardRoundedIcon color="primary" />
                 </ListItemIcon>
                 <Link to="/dashboard/admin" className={classes.link}>
-                    <ListItemText primary="Dashboard" />
+                    <ListItemText primary="Dashboard/admin" />
                 </Link>
             </ListItem>
             <ListItem button>
