@@ -35,7 +35,7 @@ export const getHouseByID = (id) => async (dispatch) => {
         },
     };
 
-    const response = await fetch(`${url}/house/${id}`, options);
+    const response = await fetch(`${url}/house/detail/${id}`, options);
     const result = await response.json();
 
     dispatch({

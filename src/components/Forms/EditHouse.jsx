@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import { Container, Grid, Button } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { getHouseByID, updateHouse } from "../../redux/actions";
 import { Formik, Form, Field } from "formik";
 
@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function EditHouse() {
+export default function EditHouse(props) {
     const classes = useStyles();
 
     const CustomField = (props) => {
@@ -33,11 +33,15 @@ export default function EditHouse() {
     };
 
     const dispatch = useDispatch();
-    const { pathname } = useLocation();
-    const houses = useSelector((state) => state.houses);
+    const houses = useSelector((state) => state.houses.getHouseById);
     const history = useHistory();
 
-    const id = pathname.split("/")[4];
+    // Array.isArray(houses) && houses.map((house) => (
+    //     console.log(house._id)
+    //   ))
+
+    const id = props.id;
+    console.log(id, 'house')
 
     useEffect(() => {
         dispatch(getHouseByID(id));
@@ -107,22 +111,18 @@ export default function EditHouse() {
                                     label="Description"
                                 />
                             </Grid>
-                            {Array.isArray(houses) && houses.map((house) => (
-                            <Grid  key={house._id}  container item xs={12} md={6} lg={6}>
+                            <Grid container item xs={12} md={6} lg={6}>
                                 <Button
                                     type="submit"
                                     fullWidth
                                     variant="contained"
                                     color="primary"
                                     className={classes.submit}
-                                    onClick={() =>
-                                        dispatch(updateHouse(house._id))
-                                    }
                                 >
                                     Update
                                 </Button>
                             </Grid>
-                            ))}
+                            
                         </Grid>
                     </Form>
                 )}
