@@ -3,7 +3,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import DashboardRoundedIcon from "@material-ui/icons/DashboardRounded";
 import SupervisedUserCircleIcon from "@material-ui/icons/SupervisedUserCircle";
 import GroupRoundedIcon from "@material-ui/icons/GroupRounded";
 import HomeWorkRoundedIcon from "@material-ui/icons/HomeWorkRounded";
