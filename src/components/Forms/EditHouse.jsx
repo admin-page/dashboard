@@ -27,6 +27,7 @@ export default function EditHouse(props) {
                 variant="outlined"
                 margin="normal"
                 className={classes.field}
+                required
                 {...props}
             />
         );
@@ -54,7 +55,9 @@ export default function EditHouse(props) {
                     houseTitle: houses.houseTitle || "",
                     price: houses.price || "",
                     location: houses.location || "",
+                    image_url: houses.image_url || "",
                     desc: houses.desc || "",
+                    
                     
                 }}
                 enableReinitialize={true}
@@ -82,7 +85,6 @@ export default function EditHouse(props) {
                                     name="houseTitle"
                                     label="House Name"
                                     autoFocus
-                                    required
                                 />
                             </Grid>
                             <Grid container >
@@ -91,7 +93,6 @@ export default function EditHouse(props) {
                                     as={CustomField}
                                     name="price"
                                     label="Price"
-                                    required
                                 />
                             </Grid>
                             <Grid container>
@@ -110,6 +111,16 @@ export default function EditHouse(props) {
                                     name="desc"
                                     label="Description"
                                 />
+                            </Grid>
+
+                            <Grid container>
+                                    <Field
+                                    type="text"
+                                    name="image_url"
+                                    label="Image URL"
+                                    as={CustomField}
+                                    
+                                /> 
                             </Grid>
                             <Grid container item xs={12} md={6} lg={6}>
                                 <Button
